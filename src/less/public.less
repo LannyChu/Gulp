@@ -1,0 +1,331 @@
+// LESS公共属性与公共方法
+// @time 2020.12.12
+// @author Lanny
+
+
+
+// 公共变量
+@color: #f09425; //主题颜色
+@maxWidth: 100%; //页面最大宽度
+@minWidth: 1200px; //页面最小宽度
+
+
+
+// transform: translate();
+// @param {Number px} X 水平方向位移距离
+// @param {Number px} Y 垂直方向位移距离
+// @param {Number px} Z Z轴方向位移距离
+.translateNum (@x, @y, @z) {
+    -o-transform: translate3d(@x, @y, @z);
+    -moz-transform: translate3d(@x, @y, @z);
+    -webkit-transform: translate3d(@x, @y, @z);
+    transform: translate3d(@x, @y, @z);
+}
+
+
+// transform: scale();
+// @param {Number} times 缩放倍数
+.transformScale (@times) {
+    -o-transform: translate3d(0, 0, 0) scale(@times);
+    -moz-transform: translate3d(0, 0, 0) scale(@times);
+    -webkit-transform: translate3d(0, 0, 0) scale(@times);
+    transform: translate3d(0, 0, 0) scale(@times);
+}
+
+
+// 过度
+// @param {String} obj 过度对象
+// @param {Number s} time 过度时间
+.transition (@obj, @time) {
+    -o-transition: @obj @time;
+    -moz-transition: @obj @time;
+    -webkit-transition: @obj @time;
+    transition: @obj @time;
+}
+
+
+// 过度时间
+// @param {Number s} time 过度时间
+.transitionTime (@time) {
+    -o-transition-duration: @time;
+    -moz-transition-duration: @time;
+    -webkit-transition-duration: @time;
+    transition-duration: @time;
+}
+
+
+// 过度延迟时间
+// @param {Number s} time 过度延迟时间
+.transitionDelay (@time) {
+    -o-transition-delay: @time;
+    -moz-transition-delay: @time;
+    -webkit-transition-delay: @time;
+    transition-delay: @time;
+}
+
+
+// 过度动画运动轨迹
+// @param {String} type 过度动画运动轨迹
+.transitionFunction (@type) {
+    -webkit-transition-timing-function: @type;
+    -moz-transition-timing-function: @type;
+    -ms-transition-timing-function: @type;
+    transition-timing-function: @type;
+}
+
+
+// X轴方向旋转
+// @param {Number deg} deg 旋转角度
+.transformRotateX (@deg) {
+    -o-transform: rotateX(@deg);
+    -moz-transform: rotateX(@deg);
+    -webkit-transform: rotateX(@deg);
+    transform: rotateX(@deg);
+}
+
+
+// Y轴方向旋转
+// @param {Number deg} deg 旋转角度
+.transformRotateY (@deg) {
+    -o-transform: rotateY(@deg);
+    -moz-transform: rotateY(@deg);
+    -webkit-transform: rotateY(@deg);
+    transform: rotateY(@deg);
+}
+
+
+// Z轴方向旋转
+// @param {Number deg} deg 旋转角度
+.transformRotateZ (@deg) {
+    -o-transform: rotateZ(@deg);
+    -moz-transform: rotateZ(@deg);
+    -webkit-transform: rotateZ(@deg);
+    transform: rotateZ(@deg);
+}
+
+
+// 动画延时时间
+// @param {Number s} time 动画延时时间
+.animationDelay (@time) {
+    -o-animation-delay: @time;
+    -moz-animation-delay: @time;
+    -webkit-animation-delay: @time;
+    animation-delay: @time;
+}
+
+
+// 动画执行时间
+// @param {Number s} time 动画执行时间
+.animationTime (@time) {
+    -o-animation-duration: @time;
+    -moz-animation-duration: @time;
+    -webkit-animation-duration: @time;
+    animation-duration: @time;
+}
+
+
+// 动画延时时间循环设置
+// @param {Number} n 循环次数
+// @param {i} i 从第几次开始循环，默认为1
+// @param {Number s} time 动画延时时间
+.animationLoop (@n, @i: 1, @time) when (@i <=@n) {
+    &:nth-child(@{i}) {
+        .animationDelay(@time * @i - @time);
+    }
+    .animationLoop(@n, (@i+1), @time);
+}
+
+
+// 单行文本溢出隐藏
+.oneText () {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+// 多行文本溢出隐藏
+// @param {Number} num 需要控制的行数
+// @param {Number px} lineH 单行文本行高
+// @param {Boolean} flag 在行数不足时是否限制文本最小高度
+.muchText (@num, @lineH, @flag) {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: @num;
+    -webkit-box-orient: vertical;
+    max-height: @lineH * @num;
+    min-height: @lineH * @num * @flag;
+    line-height: @lineH;
+}
+
+
+// 定位居中
+.positionCenter () {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+
+// 输入框placeholder颜色
+// @param {String} color 输入框placeholder颜色
+.placeholderColor (@color) {
+    &::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    &:-moz-placeholder {
+        color: @color;
+    }
+
+    &:-ms-input-placeholder {
+        color: @color;
+    }
+
+    &::placeholder {
+        color: @color;
+    }
+}
+
+
+// flex布局兼容
+.flex () {
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-center () {
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+}
+
+.flex-column () {
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+.flex-wrap () {
+    -webkit-box-lines: multiple;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex-row-center () {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+}
+
+.flex-row-start () {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -o-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-row-end () {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    -ms-justify-content: flex-end;
+    -o-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+.flex-row-justify () {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    -ms-justify-content: space-between;
+    -o-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.flex-column-center () {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+}
+
+.flex-column-start () {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    -ms-align-items: flex-start;
+    -o-align-items: flex-start;
+    align-items: flex-start;
+}
+
+.flex-column-end () {
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -moz-align-items: flex-end;
+    -ms-align-items: flex-end;
+    -o-align-items: flex-end;
+    align-items: flex-end;
+}
+
+.flex1 () {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.flex-rank1 () {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+}
+
+.flex-rank2 () {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+}
